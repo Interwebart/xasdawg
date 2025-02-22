@@ -1,6 +1,7 @@
 import yaml
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 from threading import Lock
 from std_msgs.msg import String, Float32, Int32, Bool
 from px4_msgs.msg import *
@@ -17,6 +18,12 @@ class TopicHandler(Node):
     
     def create_subscriptions(self):
         """Создает подписки на все топики из конфигурационного файла."""
+        qos_profile = QoSProfile(
+            reliability=QoSReliabilityPolicy.RELIABLE,  # Делаем надежным
+            history=QoSHistoryPolicy.KEEP_LAST,
+            depth=10
+        )
+        
         message_types = {
             "battery_status": BatteryStatus,
             "vehicle_attitude": VehicleAttitude,
@@ -27,8 +34,8 @@ class TopicHandler(Node):
         
         for category in self.topics.values():
             for topic_name, topic_path in category.items():
-                msg_type = message_types.get(topic_name, String)  # По умолчанию String для неизвестных топиков
-                self.create_subscription(msg_type, topic_path, self.generic_callback(topic_name), 10)
+                msg_type = message_types.get(topic_name, String)  # По умолчанию String
+                self.create_subscription(msg_type, topic_path, self.generic_callback(topic_name), qos_profile)
     
     def generic_callback(self, topic_name):
         """Обработчик сообщений для всех подписанных топиков."""
