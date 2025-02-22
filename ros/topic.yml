@@ -1,27 +1,142 @@
 topics:
   inbound:  # Топики, на которые поступают команды и запросы в автопилот (PX4)
-    actuator_motors: "/fmu/in/actuator_motors"  # (Принимает) \ Сигналы управления моторами = [0.0, 1.0, 0.5, 0.2]
-    actuator_servos: "/fmu/in/actuator_servos"  # (Принимает) \ Сигналы управления сервоприводами = [1.0, -1.0, 0.5]
-    arming_check_reply: "/fmu/in/arming_check_reply"  # (Принимает) \ Подтверждение статуса готовности двигателя = True / False
-    aux_global_position: "/fmu/in/aux_global_position"  # (Принимает) \ Альтернативная глобальная позиция = {lat: 37.7749, lon: -122.4194, alt: 100.0}
-    config_control_setpoints: "/fmu/in/config_control_setpoints"  # (Принимает) \ Настройки контрольных точек = {roll: 0.1, pitch: 0.0, yaw: 0.5}
-    config_overrides_request: "/fmu/in/config_overrides_request"  # (Принимает) \ Запрос на изменение конфигурации = "change_max_speed"
-    distance_sensor: "/fmu/in/distance_sensor"  # (Принимает) \ Данные с датчиков расстояния = {front: 1.5, bottom: 0.3}
-    goto_setpoint: "/fmu/in/goto_setpoint"  # (Принимает) \ Команда на перемещение = {x: 10.0, y: 5.0, z: 3.0}
-    manual_control_input: "/fmu/in/manual_control_input"  # (Принимает) \ Управление с пульта = {throttle: 0.8, roll: 0.1}
-    vehicle_command: "/fmu/in/vehicle_command"  # (Принимает) \ Команды для выполнения = {command: 400, param1: 1}
-    vehicle_visual_odometry: "/fmu/in/vehicle_visual_odometry"  # (Принимает) \ Данные визуальной одометрии = {x: 0.5, y: -0.1, z: 0.3}
-  
+    # Управление моторами
+    actuator_motors: "/fmu/in/actuator_motors"
+    
+    # Управление сервоприводами
+    actuator_servos: "/fmu/in/actuator_servos"
+    
+    # Ответ на команду проверки готовности к взлету
+    arming_check_reply: "/fmu/in/arming_check_reply"
+    
+    # Глобальная позиция вспомогательных устройств
+    aux_global_position: "/fmu/in/aux_global_position"
+    
+    # Настройка контрольных точек управления
+    config_control_setpoints: "/fmu/in/config_control_setpoints"
+    
+    # Запрос на изменение параметров управления
+    config_overrides_request: "/fmu/in/config_overrides_request"
+    
+    # Данные дальномера
+    distance_sensor: "/fmu/in/distance_sensor"
+    
+    # Команда перемещения в заданную точку
+    goto_setpoint: "/fmu/in/goto_setpoint"
+    
+    # Входные данные для ручного управления
+    manual_control_input: "/fmu/in/manual_control_input"
+    
+    # Запрос формата сообщений
+    message_format_request: "/fmu/in/message_format_request"
+    
+    # Подтверждение завершения режима работы
+    mode_completed: "/fmu/in/mode_completed"
+    
+    # Данные о препятствиях
+    obstacle_distance: "/fmu/in/obstacle_distance"
+    
+    # Команды режима offboard
+    offboard_control_mode: "/fmu/in/offboard_control_mode"
+    
+    # Статус бортового компьютера
+    onboard_computer_status: "/fmu/in/onboard_computer_status"
+    
+    # Запрос на регистрацию внешнего компонента
+    register_ext_component_request: "/fmu/in/register_ext_component_request"
+    
+    # Данные оптического потока
+    sensor_optical_flow: "/fmu/in/sensor_optical_flow"
+    
+    # Статус телеметрии
+    telemetry_status: "/fmu/in/telemetry_status"
+    
+    # Задание траектории
+    trajectory_setpoint: "/fmu/in/trajectory_setpoint"
+    
+    # Отмена регистрации внешнего компонента
+    unregister_ext_component: "/fmu/in/unregister_ext_component"
+    
+    # Задание ориентации аппарата
+    vehicle_attitude_setpoint: "/fmu/in/vehicle_attitude_setpoint"
+    
+    # Команды управления полетом
+    vehicle_command: "/fmu/in/vehicle_command"
+    
+    # Контроль выполнения команд
+    vehicle_command_mode_executor: "/fmu/in/vehicle_command_mode_executor"
+    
+    # Данные о внешнем слежении за движением
+    vehicle_mocap_odometry: "/fmu/in/vehicle_mocap_odometry"
+    
+    # Задание угловых скоростей
+    vehicle_rates_setpoint: "/fmu/in/vehicle_rates_setpoint"
+    
+    # Установка тяги
+    vehicle_thrust_setpoint: "/fmu/in/vehicle_thrust_setpoint"
+    
+    # Установка момента сил
+    vehicle_torque_setpoint: "/fmu/in/vehicle_torque_setpoint"
+    
+    # Данные визуальной одометрии
+    vehicle_visual_odometry: "/fmu/in/vehicle_visual_odometry"
+
   outbound:  # Топики, в которых публикуется состояние дрона (телеметрия)
-    battery_status: "/fmu/out/battery_status"  # (Отдает) \ Статус батареи = {voltage: 15.2, current: 3.2, remaining: 0.75}
-    vehicle_attitude: "/fmu/out/vehicle_attitude"  # (Отдает) \ Ориентация дрона = {roll: 0.1, pitch: 0.0, yaw: -1.5}
-    vehicle_global_position: "/fmu/out/vehicle_global_position"  # (Отдает) \ Глобальная позиция = {lat: 37.7749, lon: -122.4194, alt: 100.0}
-    vehicle_local_position: "/fmu/out/vehicle_local_position"  # (Отдает) \ Локальная позиция = {x: 10.0, y: 5.0, z: 3.0}
-    vehicle_status_v1: "/fmu/out/vehicle_status_v1"  # (Отдает) \ Общий статус дрона = {armed: True, mode: "OFFBOARD"}
-  
+    # Статус батареи
+    battery_status: "/fmu/out/battery_status"
+    
+    # Флаги статуса оценивания положения
+    estimator_status_flags: "/fmu/out/estimator_status_flags"
+    
+    # Флаги аварийного режима
+    failsafe_flags: "/fmu/out/failsafe_flags"
+    
+    # Установленные значения ручного управления
+    manual_control_setpoint: "/fmu/out/manual_control_setpoint"
+    
+    # Параметры заданных точек маршрута
+    position_setpoint_triplet: "/fmu/out/position_setpoint_triplet"
+    
+    # Данные с сенсоров
+    sensor_combined: "/fmu/out/sensor_combined"
+    
+    # Статус синхронизации времени
+    timesync_status: "/fmu/out/timesync_status"
+    
+    # Ориентация дрона
+    vehicle_attitude: "/fmu/out/vehicle_attitude"
+    
+    # Подтверждение выполнения команды
+    vehicle_command_ack: "/fmu/out/vehicle_command_ack"
+    
+    # Режим управления дроном
+    vehicle_control_mode: "/fmu/out/vehicle_control_mode"
+    
+    # Глобальная позиция
+    vehicle_global_position: "/fmu/out/vehicle_global_position"
+    
+    # Данные GPS
+    vehicle_gps_position: "/fmu/out/vehicle_gps_position"
+    
+    # Обнаружение посадки
+    vehicle_land_detected: "/fmu/out/vehicle_land_detected"
+    
+    # Локальная позиция дрона
+    vehicle_local_position: "/fmu/out/vehicle_local_position"
+    
+    # Одометрия движения
+    vehicle_odometry: "/fmu/out/vehicle_odometry"
+    
+    # Общий статус дрона
+    vehicle_status_v1: "/fmu/out/vehicle_status_v1"
+
   model:  # Топики, связанные с моделью дрона
-    x500_odometry: "/model/x500/odometry"  # (Отдает) \ Оценка положения модели = {x: 1.0, y: 0.5, z: 2.0, yaw: 0.1}
+    # Одометрия модели X500
+    x500_odometry: "/model/x500/odometry"
 
   system:  # Системные топики
-    parameter_events: "/parameter_events"  # (Отдает) \ Изменение параметров = {param: "max_speed", value: 15.0}
-    rosout: "/rosout"  # (Отдает) \ Системные логи = "PX4 запущен успешно"
+    # События изменения параметров
+    parameter_events: "/parameter_events"
+    
+    # Логи ROS2
+    rosout: "/rosout"
